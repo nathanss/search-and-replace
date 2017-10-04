@@ -12,7 +12,7 @@ Imagine that you have this project structure:
 And PREFIX1FILE.java content is:
 
 ```
-asdasdasdasdasPREFIX1
+asdasdasdasdasprefix1
 PREFIX1
 Something
 Blablabla
