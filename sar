@@ -1,0 +1,37 @@
+#!/bin/bash
+
+if test $# -lt 2; then
+  echo "usage: `basename $0` <directory> <to_replace> <replace_value>"
+  exit 123
+fi
+
+DIR=$1
+OLD_PATTERN=$2
+NEW_PATTERN=$3
+SANITIZED_OLD_PATTERN="${OLD_PATTERN//\//#}"
+SANITIZED_NEW_PATTERN="${NEW_PATTERN//\//#}"
+
+echo "sanitized old pattern: $SANITIZED_OLD_PATTERN"
+echo "sanitized new pattern: $SANITIZED_NEW_PATTERN"
+
+echo "STARTING RENAME OF DIRECTORIES"
+
+for directory in `find $DIR -name "*$SANITIZED_OLD_PATTERN*" -type d`; do #directories
+  NEW_DIRECTORY_NAME="${directory//$SANITIZED_OLD_PATTERN/$SANITIZED_NEW_PATTERN}"
+  mv "$directory" "$NEW_DIRECTORY_NAME"
+done
+
+echo "ENDING RENAME OF DIRECTORIES"
+echo "STARTING RENAME OF FILES"
+
+for file in `find $DIR -name "*$SANITIZED_OLD_PATTERN*" -type f`; do
+  NEW_FILE_NAME_WITH_PATH="${file//$SANITIZED_OLD_PATTERN/$SANITIZED_NEW_PATTERN}"
+  mv "$file" "$NEW_FILE_NAME_WITH_PATH"
+done
+
+echo "ENDING RENAME OF FILES"
+echo "STARTING REPLACE OF FILE'S CONTENTS"
+
+find $DIR -type f -exec sed -i "s,$OLD_PATTERN,$NEW_PATTERN,Ig" {} +
+
+echo "ENDING REPLACE OF FILE'S CONTENTS"
