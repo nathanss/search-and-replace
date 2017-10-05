@@ -1,3 +1,5 @@
+## PLEASE BACKUP BEFORE APPLYING THIS SCRIPT TO A DIRECTORY
+
 # search-and-replace
 
 This is a very simple tool that replaces, at the same time, directory names, file names, and file contents, based on a simple pattern.
