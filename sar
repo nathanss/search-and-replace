@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if test $# -lt 2; then
+if test $# -lt 3; then
   echo "usage: `basename $0` <directory> <to_replace> <replace_value>"
   exit 123
 fi
