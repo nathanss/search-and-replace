@@ -42,7 +42,8 @@ for dirpath, dirnames, files in os.walk(topdir, False):
   if '.git' in dirpath:
     continue
   for name in files:
-      if '.pdf' not in name:
-        process_file(name, dirpath)
+      if '.pdf' in name:
+        continue
+      process_file(name, dirpath)
   process_dir(dirpath)
     
